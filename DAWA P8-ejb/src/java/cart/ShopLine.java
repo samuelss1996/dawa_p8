@@ -3,18 +3,18 @@ package cart;
 public class ShopLine {
     private CDProduct product;
     private Integer quantity;
-    private Float totalPrize;
+    private Float totalPrice;
 
     public ShopLine(CDProduct product, Integer quantity) {
         this.product = product;
         this.quantity = quantity;
 
-        this.totalPrize = product.getPrize() * quantity;
+        this.totalPrice = product.getPrize() * quantity;
     }
 
     public void addQuantity(Integer quantity) {
         this.quantity += quantity;
-        this.totalPrize += quantity * this.product.getPrize();
+        this.totalPrice += quantity * this.product.getPrize();
     }
 
     public CDProduct getProduct() {
@@ -25,8 +25,8 @@ public class ShopLine {
         return quantity;
     }
 
-    public Float getTotalPrize() {
-        return totalPrize;
+    public Float getTotalPrice() {
+        return totalPrice;
     }
 
     @Override
