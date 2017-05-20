@@ -63,7 +63,7 @@ public class ShopHelper {
         cdProduct.setTitle(matcher.group(1));
         cdProduct.setArtist(matcher.group(2));
         cdProduct.setCountry(matcher.group(3));
-        cdProduct.setPrize(Float.valueOf(matcher.group(4)));
+        cdProduct.setPrice(Float.valueOf(matcher.group(4)));
 
         return cdProduct;
     }

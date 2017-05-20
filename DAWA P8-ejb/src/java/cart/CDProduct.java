@@ -4,13 +4,13 @@ public class CDProduct {
     private String title;
     private String artist;
     private String country;
-    private Float prize;
+    private Float price;
 
     public CDProduct() {
         this.title = null;
         this.artist = null;
         this.country = null;
-        this.prize = 0f;
+        this.price = 0f;
     }
 
     public String getTitle() {
@@ -37,12 +37,12 @@ public class CDProduct {
         this.country = country;
     }
 
-    public Float getPrize() {
-        return prize;
+    public Float getPrice() {
+        return price;
     }
 
-    public void setPrize(Float prize) {
-        this.prize = prize;
+    public void setPrice(Float price) {
+        this.price = price;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CDProduct {
         if (title != null ? !title.equals(product.title) : product.title != null) return false;
         if (artist != null ? !artist.equals(product.artist) : product.artist != null) return false;
         if (country != null ? !country.equals(product.country) : product.country != null) return false;
-        return prize != null ? prize.equals(product.prize) : product.prize == null;
+        return price != null ? price.equals(product.price) : product.price == null;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class CDProduct {
         int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (artist != null ? artist.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (prize != null ? prize.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
         return result;
     }
 }

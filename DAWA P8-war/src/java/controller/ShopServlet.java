@@ -1,6 +1,5 @@
 package controller;
 
-import cart.ejb.ShoppingCartLocal;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,13 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
+// TODO terminar el modelo con todas sus cosicas de claves primarias y tal
 @WebServlet(name = "shop", urlPatterns = "/shop")
 public class ShopServlet extends HttpServlet {
     

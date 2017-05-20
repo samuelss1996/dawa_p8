@@ -9,12 +9,12 @@ public class ShopLine {
         this.product = product;
         this.quantity = quantity;
 
-        this.totalPrice = product.getPrize() * quantity;
+        this.totalPrice = product.getPrice() * quantity;
     }
 
     public void addQuantity(Integer quantity) {
         this.quantity += quantity;
-        this.totalPrice += quantity * this.product.getPrize();
+        this.totalPrice += quantity * this.product.getPrice();
     }
 
     public CDProduct getProduct() {
