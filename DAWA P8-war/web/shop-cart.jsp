@@ -21,7 +21,7 @@
                     <th>Importe</th>
                     <th></th>
                 </tr>
-                <c:forEach var="shopLine" items="${requestScope.shoppingCart.shopLineList}" varStatus="loop">
+                <c:forEach var="shopLine" items="${sessionScope.shoppingCart.shopLineList}" varStatus="loop">
                     <tr>
                         <td>${shopLine.product.title}</td>
                         <td>${shopLine.product.artist}</td>
@@ -38,7 +38,7 @@
 
         <table border="1" style="margin-top: 2rem;">
             <tr><th>Importe total</th></tr>
-            <tr><td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${requestScope.shoppingCart.totalPrice}"/> $</td></tr>
+            <tr><td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${sessionScope.shoppingCart.totalPrice}"/> $</td></tr>
         </table>
 
         <p><a href="index.jsp">Seguir comprando</a></p>
@@ -50,7 +50,7 @@
             <label style="display: block; margin: 2rem;">Correo electrónico: <input type="email" name="email" required/></label>
 
             <input type="hidden" name="action" value="finish-shop-cart"/>
-            <input type="submit" value="Pagar" <c:if test="${empty requestScope.shoppingCart.shopLineList}">disabled</c:if> />
+            <input type="submit" value="Pagar" <c:if test="${empty sessionScope.shoppingCart.shopLineList}">disabled</c:if> />
         </form>
     </center>
 </body>

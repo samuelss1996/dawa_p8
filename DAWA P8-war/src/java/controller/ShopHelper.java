@@ -4,16 +4,26 @@ import cart.CDProduct;
 import cart.ShopLine;
 import cart.ejb.ShoppingCart;
 import cart.ejb.ShoppingCartLocal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 public class ShopHelper {    
-    private ShoppingCartLocal shoppingCart;
+    private final ShoppingCartLocal shoppingCart;
 
-    public ShopHelper(ShoppingCartLocal shoppingCart) {
-        this.shoppingCart = shoppingCart;
+    public ShopHelper(HttpSession session) {        
+        if(session.getAttribute("shoppingCart") != null) {
+            this.shoppingCart = (ShoppingCartLocal) session.getAttribute("shoppingCart");
+        } else {
+            this.shoppingCart = this.lookupShoppingCartLocal();
+            session.setAttribute("shoppingCart", this.shoppingCart);
+        }
     }
 
     public void addToCart(String productString, Integer quantity) {       
@@ -56,5 +66,15 @@ public class ShopHelper {
         cdProduct.setPrize(Float.valueOf(matcher.group(4)));
 
         return cdProduct;
+    }
+    
+    private ShoppingCartLocal lookupShoppingCartLocal() {
+        try {
+            Context c = new InitialContext();
+            return (ShoppingCartLocal) c.lookup("java:global/DAWA_P8/DAWA_P8-ejb/ShoppingCart!cart.ejb.ShoppingCartLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
     }
 }

@@ -8,11 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 @WebServlet(name = "shop", urlPatterns = "/shop")
 public class ShopServlet extends HttpServlet {
-    @EJB private ShoppingCartLocal shoppingCart;
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,17 +29,15 @@ public class ShopServlet extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response, String action) throws ServletException, IOException {
-        ShopHelper shopHelper = new ShopHelper(this.shoppingCart);
+        ShopHelper shopHelper = new ShopHelper(request.getSession());
         
         switch(action) {
             case "add-to-cart":
                 shopHelper.addToCart(request.getParameter("cd-name"), Integer.valueOf(request.getParameter("cd-quantity")));
-                request.setAttribute("shoppingCart", this.shoppingCart);
                 this.displayView(request, response, "shop-cart.jsp");
                 break;
             case "remove-from-cart":
                 shopHelper.removeFromCart(Integer.valueOf(request.getParameter("cd-index")));
-                request.setAttribute("shoppingCart", this.shoppingCart);
                 this.displayView(request, response, "shop-cart.jsp");
                 break;
             case "finish-shop-cart":
