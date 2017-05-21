@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -106,6 +107,11 @@ public class OrderEntity implements Serializable {
 
     public void setOrderLineEntityList(List<OrderLineEntity> orderLineEntityList) {
         this.orderLineEntityList = orderLineEntityList;
+    }
+    
+    @PostPersist
+    private void intializeOrderLines() {
+        this.orderLineEntityList.forEach(line -> line.getOrderLineEntityPK().setOrderId(this.id));
     }
 
     @Override

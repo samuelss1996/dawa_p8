@@ -52,7 +52,7 @@ public class ShopHelper {
     public void finishShopping(OrderEntityFacadeLocal orderFacade) {
         User user = (User) this.session.getAttribute("user");
         orderFacade.create(this.createOrder(this.shoppingCart, user));
-
+           
         this.shoppingCart.clear();
     }
 
@@ -97,7 +97,7 @@ public class ShopHelper {
                     line.getProduct().getCountry(), line.getProduct().getPrice(), line.getQuantity(), line.getTotalPrice()));
         }
         
-        order.setOrderLineEntityList(new ArrayList<>());
+        order.setOrderLineEntityList(orderLines);
         
         return order;
     }
