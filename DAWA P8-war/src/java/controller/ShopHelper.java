@@ -74,7 +74,7 @@ public class ShopHelper {
     private ShoppingCartLocal lookupShoppingCartLocal() {
         try {
             Context c = new InitialContext();
-            return (ShoppingCartLocal) c.lookup("java:global/DAWA_P8/DAWA_P8-ejb/ShoppingCart!cart.ejb.ShoppingCartLocal");
+            return (ShoppingCartLocal) c.lookup("java:comp/env/ejb/ShoppingCart");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

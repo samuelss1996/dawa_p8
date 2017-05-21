@@ -9,4 +9,10 @@
             30
         </session-timeout>
     </session-config>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/ShoppingCart</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>cart.ejb.ShoppingCartLocal</local>
+    </ejb-local-ref>
 </web-app>
