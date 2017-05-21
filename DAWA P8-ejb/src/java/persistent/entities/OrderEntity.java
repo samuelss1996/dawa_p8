@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistent.entities;
 
 import java.io.Serializable;
@@ -14,60 +9,42 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PostPersist;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Ada
- */
 @Entity
 @Table(name = "`order`")
-@NamedQueries({
-    @NamedQuery(name = "OrderEntity.findAll", query = "SELECT o FROM OrderEntity o")})
 public class OrderEntity implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "customerName")
     private String customerName;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 500)
     @Column(name = "customerEmail")
     private String customerEmail;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "totalPrice")
     private float totalPrice;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderEntity")
     private List<OrderLineEntity> orderLineEntityList;
-
-    public OrderEntity() {
-    }
-
-    public OrderEntity(Integer id) {
-        this.id = id;
-    }
-
-    public OrderEntity(Integer id, String customerName, String customerEmail, float totalPrice) {
-        this.id = id;
-        this.customerName = customerName;
-        this.customerEmail = customerEmail;
-        this.totalPrice = totalPrice;
-    }
 
     public Integer getId() {
         return id;
@@ -138,5 +115,4 @@ public class OrderEntity implements Serializable {
     public String toString() {
         return "persistent.entities.OrderEntity[ id=" + id + " ]";
     }
-    
 }

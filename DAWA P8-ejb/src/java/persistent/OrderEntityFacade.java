@@ -15,18 +15,12 @@ import persistent.entities.OrderEntity;
  * @author Ada
  */
 @Stateless
-public class OrderEntityFacade extends AbstractFacade<OrderEntity> implements OrderEntityFacadeLocal, OrderEntityFacadeRemote {
-
+public class OrderEntityFacade implements OrderEntityFacadeLocal, OrderEntityFacadeRemote {
     @PersistenceContext(unitName = "DAWA_P8-ejbPU")
-    private EntityManager em;
+    private EntityManager entityManager;
 
     @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    public void insert(OrderEntity entity) {
+        this.entityManager.persist(entity);
     }
-
-    public OrderEntityFacade() {
-        super(OrderEntity.class);
-    }
-    
 }

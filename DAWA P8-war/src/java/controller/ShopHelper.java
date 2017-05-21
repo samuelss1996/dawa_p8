@@ -51,7 +51,7 @@ public class ShopHelper {
     
     public void finishShopping(OrderEntityFacadeLocal orderFacade) {
         User user = (User) this.session.getAttribute("user");
-        orderFacade.create(this.createOrder(this.shoppingCart, user));
+        orderFacade.insert(this.createOrder(this.shoppingCart, user));
            
         this.shoppingCart.clear();
     }

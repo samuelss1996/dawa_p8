@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistent.entities;
 
 import java.io.Serializable;
@@ -11,10 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author Ada
- */
 @Embeddable
 public class OrderLineEntityPK implements Serializable {
 
@@ -22,6 +13,7 @@ public class OrderLineEntityPK implements Serializable {
     @NotNull
     @Column(name = "orderId")
     private int orderId;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "lineNumber")
@@ -79,5 +71,4 @@ public class OrderLineEntityPK implements Serializable {
     public String toString() {
         return "persistent.entities.OrderLineEntityPK[ orderId=" + orderId + ", lineNumber=" + lineNumber + " ]";
     }
-    
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistent.entities;
 
 import java.io.Serializable;
@@ -12,61 +7,56 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Ada
- */
 @Entity
 @Table(name = "order_line")
-@NamedQueries({
-    @NamedQuery(name = "OrderLineEntity.findAll", query = "SELECT o FROM OrderLineEntity o")})
 public class OrderLineEntity implements Serializable {
-
     private static final long serialVersionUID = 1L;
+    
     @EmbeddedId
     protected OrderLineEntityPK orderLineEntityPK;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "title")
     private String title;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "artist")
     private String artist;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "country")
     private String country;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "unitPrice")
     private float unitPrice;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "quantity")
     private int quantity;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "totalPrice")
     private float totalPrice;
+    
     @JoinColumn(name = "orderId", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private OrderEntity orderEntity;
 
     public OrderLineEntity() {
-    }
-
-    public OrderLineEntity(OrderLineEntityPK orderLineEntityPK) {
-        this.orderLineEntityPK = orderLineEntityPK;
     }
 
     public OrderLineEntity(OrderLineEntityPK orderLineEntityPK, String title, String artist, String country, float unitPrice, int quantity, float totalPrice) {
@@ -171,5 +161,4 @@ public class OrderLineEntity implements Serializable {
     public String toString() {
         return "persistent.entities.OrderLineEntity[ orderLineEntityPK=" + orderLineEntityPK + " ]";
     }
-    
 }

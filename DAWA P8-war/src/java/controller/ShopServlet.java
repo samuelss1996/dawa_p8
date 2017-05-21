@@ -10,7 +10,6 @@ import java.io.IOException;
 import javax.ejb.EJB;
 import persistent.OrderEntityFacadeLocal;
 
-// TODO terminar el modelo con todas sus cosicas de claves primarias y tal
 @WebServlet(name = "shop", urlPatterns = "/shop")
 public class ShopServlet extends HttpServlet {
     @EJB private OrderEntityFacadeLocal orderFacade;    
