@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistent;
+package persistent.entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -17,7 +17,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -25,17 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "order_line")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "OrderLineEntity.findAll", query = "SELECT o FROM OrderLineEntity o")
-    , @NamedQuery(name = "OrderLineEntity.findByOrderId", query = "SELECT o FROM OrderLineEntity o WHERE o.orderLineEntityPK.orderId = :orderId")
-    , @NamedQuery(name = "OrderLineEntity.findByLineNumber", query = "SELECT o FROM OrderLineEntity o WHERE o.orderLineEntityPK.lineNumber = :lineNumber")
-    , @NamedQuery(name = "OrderLineEntity.findByTitle", query = "SELECT o FROM OrderLineEntity o WHERE o.title = :title")
-    , @NamedQuery(name = "OrderLineEntity.findByArtist", query = "SELECT o FROM OrderLineEntity o WHERE o.artist = :artist")
-    , @NamedQuery(name = "OrderLineEntity.findByCountry", query = "SELECT o FROM OrderLineEntity o WHERE o.country = :country")
-    , @NamedQuery(name = "OrderLineEntity.findByUnitPrice", query = "SELECT o FROM OrderLineEntity o WHERE o.unitPrice = :unitPrice")
-    , @NamedQuery(name = "OrderLineEntity.findByQuantity", query = "SELECT o FROM OrderLineEntity o WHERE o.quantity = :quantity")
-    , @NamedQuery(name = "OrderLineEntity.findByTotalPrice", query = "SELECT o FROM OrderLineEntity o WHERE o.totalPrice = :totalPrice")})
+    @NamedQuery(name = "OrderLineEntity.findAll", query = "SELECT o FROM OrderLineEntity o")})
 public class OrderLineEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,7 +57,7 @@ public class OrderLineEntity implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "totalPrice")
-    private int totalPrice;
+    private float totalPrice;
     @JoinColumn(name = "orderId", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private OrderEntity orderEntity;
@@ -79,7 +69,7 @@ public class OrderLineEntity implements Serializable {
         this.orderLineEntityPK = orderLineEntityPK;
     }
 
-    public OrderLineEntity(OrderLineEntityPK orderLineEntityPK, String title, String artist, String country, float unitPrice, int quantity, int totalPrice) {
+    public OrderLineEntity(OrderLineEntityPK orderLineEntityPK, String title, String artist, String country, float unitPrice, int quantity, float totalPrice) {
         this.orderLineEntityPK = orderLineEntityPK;
         this.title = title;
         this.artist = artist;
@@ -141,11 +131,11 @@ public class OrderLineEntity implements Serializable {
         this.quantity = quantity;
     }
 
-    public int getTotalPrice() {
+    public float getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(int totalPrice) {
+    public void setTotalPrice(float totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -179,7 +169,7 @@ public class OrderLineEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "persistent.OrderLineEntity[ orderLineEntityPK=" + orderLineEntityPK + " ]";
+        return "persistent.entities.OrderLineEntity[ orderLineEntityPK=" + orderLineEntityPK + " ]";
     }
     
 }

@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import javax.ejb.EJB;
+import persistent.OrderEntityFacadeLocal;
 
 // TODO terminar el modelo con todas sus cosicas de claves primarias y tal
 @WebServlet(name = "shop", urlPatterns = "/shop")
 public class ShopServlet extends HttpServlet {
+    @EJB private OrderEntityFacadeLocal orderFacade;    
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,7 +42,7 @@ public class ShopServlet extends HttpServlet {
                 this.displayView(request, response, "confirmation.jsp");
                 break;
             case "finish-shopping":
-                shopHelper.finishShopping();
+                shopHelper.finishShopping(this.orderFacade);
                 this.displayView(request, response, "index.jsp");
         }
     }

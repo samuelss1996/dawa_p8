@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistent;
+package persistent.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,22 +20,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Ada
  */
 @Entity
-@Table(name = "order")
-@XmlRootElement
+@Table(name = "`order`")
 @NamedQueries({
-    @NamedQuery(name = "OrderEntity.findAll", query = "SELECT o FROM OrderEntity o")
-    , @NamedQuery(name = "OrderEntity.findById", query = "SELECT o FROM OrderEntity o WHERE o.id = :id")
-    , @NamedQuery(name = "OrderEntity.findByCustomerName", query = "SELECT o FROM OrderEntity o WHERE o.customerName = :customerName")
-    , @NamedQuery(name = "OrderEntity.findByCustomerEmail", query = "SELECT o FROM OrderEntity o WHERE o.customerEmail = :customerEmail")
-    , @NamedQuery(name = "OrderEntity.findByTotalPrice", query = "SELECT o FROM OrderEntity o WHERE o.totalPrice = :totalPrice")})
+    @NamedQuery(name = "OrderEntity.findAll", query = "SELECT o FROM OrderEntity o")})
 public class OrderEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,7 +52,7 @@ public class OrderEntity implements Serializable {
     @Column(name = "totalPrice")
     private float totalPrice;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderEntity")
-    private Collection<OrderLineEntity> orderLineEntityCollection;
+    private List<OrderLineEntity> orderLineEntityList;
 
     public OrderEntity() {
     }
@@ -107,13 +100,12 @@ public class OrderEntity implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    @XmlTransient
-    public Collection<OrderLineEntity> getOrderLineEntityCollection() {
-        return orderLineEntityCollection;
+    public List<OrderLineEntity> getOrderLineEntityList() {
+        return orderLineEntityList;
     }
 
-    public void setOrderLineEntityCollection(Collection<OrderLineEntity> orderLineEntityCollection) {
-        this.orderLineEntityCollection = orderLineEntityCollection;
+    public void setOrderLineEntityList(List<OrderLineEntity> orderLineEntityList) {
+        this.orderLineEntityList = orderLineEntityList;
     }
 
     @Override
@@ -138,7 +130,7 @@ public class OrderEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "persistent.OrderEntity[ id=" + id + " ]";
+        return "persistent.entities.OrderEntity[ id=" + id + " ]";
     }
     
 }

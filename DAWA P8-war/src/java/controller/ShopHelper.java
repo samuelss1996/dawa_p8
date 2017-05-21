@@ -2,22 +2,29 @@ package controller;
 
 import cart.CDProduct;
 import cart.ShopLine;
-import cart.ejb.ShoppingCart;
+import cart.User;
 import cart.ejb.ShoppingCartLocal;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.ejb.EJB;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import persistent.OrderEntityFacadeLocal;
+import persistent.entities.OrderEntity;
+import persistent.entities.OrderLineEntity;
+import persistent.entities.OrderLineEntityPK;
 
 public class ShopHelper {    
+    private final HttpSession session;
     private final ShoppingCartLocal shoppingCart;
 
     public ShopHelper(HttpSession session) {        
+        this.session = session;
+        
         if(session.getAttribute("shoppingCart") != null) {
             this.shoppingCart = (ShoppingCartLocal) session.getAttribute("shoppingCart");
         } else {
@@ -34,21 +41,17 @@ public class ShopHelper {
         this.shoppingCart.remove(index);
     }
     
-    // TODO
     public void finishShopCart(String userName, String userEmail) {
-//        User user = new User();
-//        user.setName(userName);
-//        user.setEmail(userEmail);
-//
-//        this.session.setAttribute("user", user);
+        User user = new User();
+        user.setName(userName);
+        user.setEmail(userEmail);
+
+        this.session.setAttribute("user", user);
     }
     
-    // TODO
-    public void finishShopping() {
-//        ShopCart shopCart = (ShopCart) this.session.getAttribute("shopCart");
-//        User user = (User) this.session.getAttribute("user");
-//
-//        OrdersDao.getInstance().insertOrder(shopCart, user);
+    public void finishShopping(OrderEntityFacadeLocal orderFacade) {
+        User user = (User) this.session.getAttribute("user");
+        orderFacade.create(this.createOrder(this.shoppingCart, user));
 
         this.shoppingCart.clear();
     }
@@ -76,5 +79,26 @@ public class ShopHelper {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
+    }
+
+    private OrderEntity createOrder(ShoppingCartLocal shoppingCart, User user) {
+        OrderEntity order = new OrderEntity();
+        
+        order.setCustomerName(user.getName());
+        order.setCustomerEmail(user.getEmail());
+        order.setTotalPrice(shoppingCart.getTotalPrice());
+        
+        ArrayList<OrderLineEntity> orderLines = new ArrayList();
+        
+        for(int i = 0; i < shoppingCart.getShopLineList().size(); i++) {
+            ShopLine line = shoppingCart.getShopLineList().get(i);
+            
+            orderLines.add(new OrderLineEntity(new OrderLineEntityPK(-1, i), line.getProduct().getTitle(), line.getProduct().getArtist(),
+                    line.getProduct().getCountry(), line.getProduct().getPrice(), line.getQuantity(), line.getTotalPrice()));
+        }
+        
+        order.setOrderLineEntityList(new ArrayList<>());
+        
+        return order;
     }
 }

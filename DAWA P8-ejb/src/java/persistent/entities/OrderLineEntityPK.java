@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistent;
+package persistent.entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -77,7 +77,7 @@ public class OrderLineEntityPK implements Serializable {
 
     @Override
     public String toString() {
-        return "persistent.OrderLineEntityPK[ orderId=" + orderId + ", lineNumber=" + lineNumber + " ]";
+        return "persistent.entities.OrderLineEntityPK[ orderId=" + orderId + ", lineNumber=" + lineNumber + " ]";
     }
     
 }

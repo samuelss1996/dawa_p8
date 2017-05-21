@@ -12,7 +12,7 @@
 
         <table border="1">
             <tr><th>Total a pagar</th></tr>
-            <tr><td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${sessionScope.shopCart.totalPrize}"/> $</td></tr>
+            <tr><td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${sessionScope.shoppingCart.totalPrice}"/> $</td></tr>
         </table>
 
         <p>Se enviará la factura por correo electrónico a: <strong>${sessionScope.user.email}</strong></p>

@@ -25,7 +25,7 @@
                     <tr>
                         <td>${shopLine.product.title}</td>
                         <td>${shopLine.product.artist}</td>
-                        <td>${shopLine.product.prize} $</td>
+                        <td>${shopLine.product.price} $</td>
                         <td>${shopLine.quantity}</td>
                         <td><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${shopLine.totalPrice}"/> $</td>
                         <td><button type="submit" name="cd-index" value="${loop.index}">Eliminar</button></td>
